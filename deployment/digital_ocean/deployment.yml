@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie-parley-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: movie-parley-frontend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 4200
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-parley-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-parley-frontend
+  template:
+    metadata:
+      labels:
+        app: movie-parley-frontend
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: movie-parley-frontend
+          image: baddockerhub/movieparley-frontend:app-version-placeholder
+          ports:
+            - containerPort: 4200
+              protocol: TCP
