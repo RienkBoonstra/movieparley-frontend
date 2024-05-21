@@ -60,6 +60,7 @@ jobs:
         run: |
           # authorize kubectl to execute on the cluster
           doctl kubernetes cluster kubeconfig save movie-parley-cluster
+          sed -i -e "s/app-version-placeholder/${{ github.run_number }}/g" deployment/digital_ocean/deployment.yml
           # the cluster should already be authorized to download from dockerhub. Otherwise take care of that first from
           # the command line
           kubectl apply -f deployment/digital_ocean/deployment.yml
