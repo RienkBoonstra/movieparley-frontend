@@ -32,5 +32,5 @@ spec:
         - name: movie-parley-frontend
           image: baddockerhub/movieparley-frontend:app-version-placeholder
           ports:
-            - containerPort: 4200
+            - containerPort: 8080
               protocol: TCP
