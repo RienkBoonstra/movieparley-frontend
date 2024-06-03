@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - feature/deployment-to-digital-ocean
 jobs:
   build:
     runs-on: ubuntu-latest
