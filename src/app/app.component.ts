@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,16 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Movie Parley';
+  title = { origin:'Movie Parley' };
+  constructor(private httpClient: HttpClient) {}
+
+  ngOnInit() {
+    this.httpClient.get('https://httpbin.org/ip')
+      .subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.title = data;
+        }, error: (err) => console.log(err)
+      });
+  }
 }
